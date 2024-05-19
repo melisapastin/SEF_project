@@ -4,7 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
+import java.util.List;
 public class LoginScreen extends JFrame {
     // Declare buttons for customer and manager login options
     private JButton customerButton, managerButton;
@@ -110,11 +111,17 @@ public class LoginScreen extends JFrame {
 
                 // Check which login type is selected and display appropriate message
                 if (isCustomerLogin) {
-                    JOptionPane.showMessageDialog(null, "Logged in as Customer\nEmail: " + email + "\nPassword: " + password);
                     // Navigate to Customer screen
+                    dispose(); // Close the login screen
+                    List<Animal> sampleAnimals = new ArrayList<>();
+                    sampleAnimals.add(new Animal("Buddy", "dog", 3));
+                    sampleAnimals.add(new Animal("Mittens", "cat", 2));
+                    sampleAnimals.add(new Animal("Goldie", "fish", 1));
+                    new CustomerScreen(sampleAnimals, null).setVisible(true); // Pass null as manager screen for now
                 } else if (isManagerLogin) {
-                    JOptionPane.showMessageDialog(null, "Logged in as Manager\nEmail: " + email + "\nPassword: " + password);
                     // Navigate to Manager screen
+                    dispose(); // Close the login screen
+                    new ManagerScreen().setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select a login type (Customer or Manager).");
                 }
