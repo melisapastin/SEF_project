@@ -152,8 +152,46 @@ public class ManagerScreen extends JFrame {
         // Add action listener for the Delete Animal button
         deleteAnimalButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Delete Animal button clicked.");
-                // Implement the Delete Animal functionality here
+                if (animals.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No animals available to delete.");
+                    return;
+                }
+
+                // Create an array of animal names for selection
+                String[] animalNames = new String[animals.size()];
+                for (int i = 0; i < animals.size(); i++) {
+                    animalNames[i] = animals.get(i).getName();
+                }
+
+                // Prompt the user to select an animal to delete
+                String selectedAnimalName = (String) JOptionPane.showInputDialog(
+                        null,
+                        "Select an animal to delete:",
+                        "Delete Animal",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        animalNames,
+                        animalNames[0]
+                );
+
+                // Check if the user canceled the selection
+                if (selectedAnimalName == null) {
+                    return; // Exit if the user canceled the selection
+                }
+
+                // Find and remove the selected animal
+                Animal selectedAnimal = null;
+                for (Animal animal : animals) {
+                    if (animal.getName().equals(selectedAnimalName)) {
+                        selectedAnimal = animal;
+                        break;
+                    }
+                }
+
+                if (selectedAnimal != null) {
+                    animals.remove(selectedAnimal);
+                    JOptionPane.showMessageDialog(null, "Animal deleted: " + selectedAnimalName);
+                }
             }
         });
 
