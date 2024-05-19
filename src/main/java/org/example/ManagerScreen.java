@@ -36,8 +36,38 @@ public class ManagerScreen extends JFrame {
         // Add action listener for the Add Animal button
         addAnimalButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Add Animal button clicked.");
-                // Implement the Add Animal functionality here
+                // Prompt the user for the animal's name
+                String name = JOptionPane.showInputDialog("Enter the animal's name:");
+
+                // Check if the user canceled the input dialog
+                if (name == null) {
+                    return; // Exit if the user canceled the input
+                }
+
+                // Prompt the user for the animal's species
+                String species = JOptionPane.showInputDialog("Enter the animal's species (e.g., dog, cat, fish):");
+
+                // Check if the user canceled the input dialog
+                if (species == null) {
+                    return; // Exit if the user canceled the input
+                }
+
+                // Prompt the user for the animal's age
+                String ageString = JOptionPane.showInputDialog("Enter the animal's age:");
+
+                // Check if the user canceled the input dialog
+                if (ageString == null) {
+                    return; // Exit if the user canceled the input
+                }
+
+                try {
+                    int age = Integer.parseInt(ageString); // Convert age to integer
+                    // Perform the action to add the animal using the provided details
+                    JOptionPane.showMessageDialog(null, "Animal added:\nName: " + name + "\nSpecies: " + species + "\nAge: " + age);
+                } catch (NumberFormatException ex) {
+                    // Show an error message if the age is not a valid integer
+                    JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid integer for the age.");
+                }
             }
         });
 
