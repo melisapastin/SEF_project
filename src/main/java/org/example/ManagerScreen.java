@@ -11,10 +11,14 @@ public class ManagerScreen extends JFrame {
     // List to store animals in the shelter
     private List<Animal> animals;
 
+    // List to store adoption applications
+    private List<Application> applications;
+
     // Constructor to set up the manager screen
     public ManagerScreen() {
-        // Initialize the list of animals
+        // Initialize the lists of animals and applications
         animals = new ArrayList<>();
+        applications = new ArrayList<>();
 
         // Set the title of the frame
         setTitle("Animal Shelter Manager Screen");
@@ -198,8 +202,76 @@ public class ManagerScreen extends JFrame {
         // Add action listener for the See Applications button
         seeApplicationsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "See Applications button clicked.");
-                // Implement the See Applications functionality here
+                if (applications.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No adoption applications available.");
+                    return;
+                }
+
+                // Create an array of application descriptions for selection
+                String[] applicationDescriptions = new String[applications.size()];
+                for (int i = 0; i < applications.size(); i++) {
+                    Application app = applications.get(i);
+                    applicationDescriptions[i] = "Name: " + app.getAnimalName() + ", Species: " + app.getAnimalSpecies() + ", Age: " + app.getAnimalAge() + ", Message: " + app.getMessage();
+                }
+
+                // Prompt the user to select an application to process
+                String selectedApplicationDescription = (String) JOptionPane.showInputDialog(
+                        null,
+                        "Select an application to process:",
+                        "See Applications",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        applicationDescriptions,
+                        applicationDescriptions[0]
+                );
+
+                // Check if the user canceled the selection
+                if (selectedApplicationDescription == null) {
+                    return; // Exit if the user canceled the selection
+                }
+
+                // Find the selected application
+                Application selectedApplication = null;
+                for (Application app : applications) {
+                    String appDescription = "Name: " + app.getAnimalName() + ", Species: " + app.getAnimalSpecies() + ", Age: " + app.getAnimalAge() + ", Message: " + app.getMessage();
+                    if (appDescription.equals(selectedApplicationDescription)) {
+                        selectedApplication = app;
+                        break;
+                    }
+                }
+
+                if (selectedApplication != null) {
+                    // Prompt the user to accept or reject the application
+                    int response = JOptionPane.showConfirmDialog(
+                            null,
+                            "Do you want to accept this application?\n" + selectedApplicationDescription,
+                            "Accept or Reject Application",
+                            JOptionPane.YES_NO_OPTION
+                    );
+
+                    if (response == JOptionPane.YES_OPTION) {
+                        // Find and remove the adopted animal from the list
+                        Animal adoptedAnimal = null;
+                        for (Animal animal : animals) {
+                            if (animal.getName().equals(selectedApplication.getAnimalName()) &&
+                                    animal.getSpecies().equals(selectedApplication.getAnimalSpecies()) &&
+                                    animal.getAge() == selectedApplication.getAnimalAge()) {
+                                adoptedAnimal = animal;
+                                break;
+                            }
+                        }
+
+                        if (adoptedAnimal != null) {
+                            animals.remove(adoptedAnimal);
+                            JOptionPane.showMessageDialog(null, "Application accepted. Animal adopted: " + adoptedAnimal.getName());
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Application rejected.");
+                    }
+
+                    // Remove the processed application from the list
+                    applications.remove(selectedApplication);
+                }
             }
         });
 
@@ -263,5 +335,38 @@ class Animal {
 
     public void setAge(int age) {
         this.age = age;
+    }
+}
+
+// Application class to store adoption application details
+class Application {
+    private String animalName;
+    private String animalSpecies;
+    private int animalAge;
+    private String message;
+
+    // Constructor to initialize the application details
+    public Application(String animalName, String animalSpecies, int animalAge, String message) {
+        this.animalName = animalName;
+        this.animalSpecies = animalSpecies;
+        this.animalAge = animalAge;
+        this.message = message;
+    }
+
+    // Getters for the application details
+    public String getAnimalName() {
+        return animalName;
+    }
+
+    public String getAnimalSpecies() {
+        return animalSpecies;
+    }
+
+    public int getAnimalAge() {
+        return animalAge;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
