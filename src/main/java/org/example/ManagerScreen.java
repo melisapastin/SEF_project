@@ -297,6 +297,14 @@ public class ManagerScreen extends JFrame {
             }
         });
     }
+
+    public void addApplication(Application application) {
+        // Add the application to the list of applications
+        applications.add(application);
+
+        // Display a confirmation message to the manager
+        JOptionPane.showMessageDialog(this, "New application received for " + application.getAnimalName() + ".");
+    }
 }
 
 // Animal class to store animal details
