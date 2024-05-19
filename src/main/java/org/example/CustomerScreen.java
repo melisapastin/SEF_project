@@ -119,7 +119,6 @@ public class CustomerScreen extends JFrame {
     // Method to submit an application for an animal
     private void submitApplication(Animal animal, String message) {
         Application application = new Application(animal.getName(), animal.getSpecies(), animal.getAge(), message);
-        managerScreen.addApplication(application);  // Add the application to the manager's list
         JOptionPane.showMessageDialog(null, "Application submitted for " + animal.getName() + ".");
     }
 
@@ -138,7 +137,3 @@ public class CustomerScreen extends JFrame {
         new CustomerScreen(sampleAnimals, managerScreen);
     }
 }
-
-// Assume the ManagerScreen class and other classes (Animal, Application) are already defined
-// as provided in the previous code snippet.
-
