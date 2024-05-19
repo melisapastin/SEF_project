@@ -4,11 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManagerScreen extends JFrame {
+    // List to store animals in the shelter
+    private List<Animal> animals;
 
     // Constructor to set up the manager screen
     public ManagerScreen() {
+        // Initialize the list of animals
+        animals = new ArrayList<>();
+
         // Set the title of the frame
         setTitle("Animal Shelter Manager Screen");
 
@@ -62,7 +69,8 @@ public class ManagerScreen extends JFrame {
 
                 try {
                     int age = Integer.parseInt(ageString); // Convert age to integer
-                    // Perform the action to add the animal using the provided details
+                    // Add the new animal to the list
+                    animals.add(new Animal(name, species, age));
                     JOptionPane.showMessageDialog(null, "Animal added:\nName: " + name + "\nSpecies: " + species + "\nAge: " + age);
                 } catch (NumberFormatException ex) {
                     // Show an error message if the age is not a valid integer
@@ -74,8 +82,70 @@ public class ManagerScreen extends JFrame {
         // Add action listener for the Edit Animal button
         editAnimalButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Edit Animal button clicked.");
-                // Implement the Edit Animal functionality here
+                if (animals.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No animals available to edit.");
+                    return;
+                }
+
+                // Create an array of animal names for selection
+                String[] animalNames = new String[animals.size()];
+                for (int i = 0; i < animals.size(); i++) {
+                    animalNames[i] = animals.get(i).getName();
+                }
+
+                // Prompt the user to select an animal to edit
+                String selectedAnimalName = (String) JOptionPane.showInputDialog(
+                        null,
+                        "Select an animal to edit:",
+                        "Edit Animal",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        animalNames,
+                        animalNames[0]
+                );
+
+                // Check if the user canceled the selection
+                if (selectedAnimalName == null) {
+                    return; // Exit if the user canceled the selection
+                }
+
+                // Find the selected animal
+                Animal selectedAnimal = null;
+                for (Animal animal : animals) {
+                    if (animal.getName().equals(selectedAnimalName)) {
+                        selectedAnimal = animal;
+                        break;
+                    }
+                }
+
+                if (selectedAnimal != null) {
+                    // Prompt the user for the new details
+                    String newName = JOptionPane.showInputDialog("Enter the new name:", selectedAnimal.getName());
+                    if (newName == null) {
+                        return;
+                    }
+
+                    String newSpecies = JOptionPane.showInputDialog("Enter the new species:", selectedAnimal.getSpecies());
+                    if (newSpecies == null) {
+                        return;
+                    }
+
+                    String newAgeString = JOptionPane.showInputDialog("Enter the new age:", selectedAnimal.getAge());
+                    if (newAgeString == null) {
+                        return;
+                    }
+
+                    try {
+                        int newAge = Integer.parseInt(newAgeString);
+                        // Update the animal's details
+                        selectedAnimal.setName(newName);
+                        selectedAnimal.setSpecies(newSpecies);
+                        selectedAnimal.setAge(newAge);
+                        JOptionPane.showMessageDialog(null, "Animal details updated:\nName: " + newName + "\nSpecies: " + newSpecies + "\nAge: " + newAge);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid integer for the age.");
+                    }
+                }
             }
         });
 
@@ -116,5 +186,44 @@ public class ManagerScreen extends JFrame {
                 new ManagerScreen();
             }
         });
+    }
+}
+
+// Animal class to store animal details
+class Animal {
+    private String name;
+    private String species;
+    private int age;
+
+    // Constructor to initialize the animal's details
+    public Animal(String name, String species, int age) {
+        this.name = name;
+        this.species = species;
+        this.age = age;
+    }
+
+    // Getters and setters for the animal's details
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }
