@@ -18,6 +18,7 @@ public class ManagerScreen extends JFrame {
     public ManagerScreen() {
         // Initialize the lists of animals and applications
         animals = new ArrayList<>();
+        animals=org.example.AnimalDatabase.getAnimals();
         applications = new ArrayList<>();
 
         // Set the title of the frame
@@ -74,7 +75,8 @@ public class ManagerScreen extends JFrame {
                 try {
                     int age = Integer.parseInt(ageString); // Convert age to integer
                     // Add the new animal to the list
-                    animals.add(new Animal(name, species, age));
+                    org.example.AnimalDatabase.AddInAnimalDatabase(name,species,age);
+                    animals=org.example.AnimalDatabase.getAnimals();
                     JOptionPane.showMessageDialog(null, "Animal added:\nName: " + name + "\nSpecies: " + species + "\nAge: " + age);
                 } catch (NumberFormatException ex) {
                     // Show an error message if the age is not a valid integer
@@ -193,7 +195,7 @@ public class ManagerScreen extends JFrame {
                 }
 
                 if (selectedAnimal != null) {
-                    animals.remove(selectedAnimal);
+                   animals= org.example.AnimalDatabase.DeleteAnimalFromAnimalDatabase(selectedAnimalName);
                     JOptionPane.showMessageDialog(null, "Animal deleted: " + selectedAnimalName);
                 }
             }
