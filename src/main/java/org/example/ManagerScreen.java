@@ -314,6 +314,9 @@ public class ManagerScreen extends JFrame {
         return animals;
     }
 
+    public List<Application> getApplications() {
+        return applications;
+    }
 }
 
 // Animal class to store animal details
