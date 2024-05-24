@@ -15,8 +15,18 @@ public class LoginScreen extends JFrame {
     private JPanel loginPanel;
 
     // Flags to determine which login type is selected
-    private boolean isCustomerLogin = false;
-    private boolean isManagerLogin = false;
+    boolean isCustomerLogin = false;
+    boolean isManagerLogin = false;
+
+    // Define email-password combinations for customers and managers
+    private static final String CUSTOMER_EMAIL_1 = "customer1@example.com";
+    private static final String CUSTOMER_PASSWORD_1 = "customer1pass";
+    private static final String CUSTOMER_EMAIL_2 = "customer2@example.com";
+    private static final String CUSTOMER_PASSWORD_2 = "customer2pass";
+    private static final String MANAGER_EMAIL_1 = "manager1@example.com";
+    private static final String MANAGER_PASSWORD_1 = "manager1pass";
+    private static final String MANAGER_EMAIL_2 = "manager2@example.com";
+    private static final String MANAGER_PASSWORD_2 = "manager2pass";
 
     // Define email-password combinations for customers and managers
     private static final String CUSTOMER_EMAIL_1 = "customer1@example.com";
