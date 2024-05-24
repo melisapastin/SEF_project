@@ -106,7 +106,7 @@ public class CustomerScreen extends JFrame {
     }
 
     // Method to apply a filter based on species
-    private void applyFilter(String species) {
+    public void applyFilter(String species) {
         filteredAnimals.clear();
         for (Animal animal : animals) {
             if (animal.getSpecies().equalsIgnoreCase(species)) {
@@ -117,9 +117,25 @@ public class CustomerScreen extends JFrame {
     }
 
     // Method to submit an application for an animal
-    private void submitApplication(Animal animal, String message) {
+    public void submitApplication(Animal animal, String message) {
         Application application = new Application(animal.getName(), animal.getSpecies(), animal.getAge(), message);
+        managerScreen.addApplication(application);
         JOptionPane.showMessageDialog(null, "Application submitted for " + animal.getName() + ".");
+    }
+
+    // Getter for the manager screen
+    public ManagerScreen getManagerScreen() {
+        return managerScreen;
+    }
+
+    // Getter for the animal list
+    public JList<String> getAnimalList() {
+        return animalList;
+    }
+
+    // Getter for the filtered animals list
+    public List<Animal> getFilteredAnimals() {
+        return filteredAnimals;
     }
 
     // Main method to run the customer screen application
