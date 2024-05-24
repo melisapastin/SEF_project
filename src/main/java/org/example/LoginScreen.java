@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
 public class LoginScreen extends JFrame {
     // Declare buttons for customer and manager login options
     private JButton customerButton, managerButton;
@@ -16,6 +17,16 @@ public class LoginScreen extends JFrame {
     // Flags to determine which login type is selected
     private boolean isCustomerLogin = false;
     private boolean isManagerLogin = false;
+
+    // Define email-password combinations for customers and managers
+    private static final String CUSTOMER_EMAIL_1 = "customer1@example.com";
+    private static final String CUSTOMER_PASSWORD_1 = "customer1pass";
+    private static final String CUSTOMER_EMAIL_2 = "customer2@example.com";
+    private static final String CUSTOMER_PASSWORD_2 = "customer2pass";
+    private static final String MANAGER_EMAIL_1 = "manager1@example.com";
+    private static final String MANAGER_PASSWORD_1 = "manager1pass";
+    private static final String MANAGER_EMAIL_2 = "manager2@example.com";
+    private static final String MANAGER_PASSWORD_2 = "manager2pass";
 
     // Constructor to set up the login screen
     public LoginScreen() {
@@ -109,19 +120,29 @@ public class LoginScreen extends JFrame {
                 String email = emailField.getText();
                 String password = new String(passwordField.getPassword());
 
-                // Check which login type is selected and display appropriate message
+                // Check which login type is selected and validate credentials
                 if (isCustomerLogin) {
-                    // Navigate to Customer screen
-                    dispose(); // Close the login screen
-                    List<Animal> sampleAnimals = new ArrayList<>();
-                    sampleAnimals.add(new Animal("Buddy", "dog", 3));
-                    sampleAnimals.add(new Animal("Mittens", "cat", 2));
-                    sampleAnimals.add(new Animal("Goldie", "fish", 1));
-                    new CustomerScreen(sampleAnimals, null).setVisible(true); // Pass null as manager screen for now
+                    if ((email.equals(CUSTOMER_EMAIL_1) && password.equals(CUSTOMER_PASSWORD_1)) ||
+                            (email.equals(CUSTOMER_EMAIL_2) && password.equals(CUSTOMER_PASSWORD_2))) {
+                        // Navigate to Customer screen
+                        dispose(); // Close the login screen
+                        List<Animal> sampleAnimals = new ArrayList<>();
+                        sampleAnimals.add(new Animal("Buddy", "dog", 3));
+                        sampleAnimals.add(new Animal("Mittens", "cat", 2));
+                        sampleAnimals.add(new Animal("Goldie", "fish", 1));
+                        new CustomerScreen(sampleAnimals, null).setVisible(true); // Pass null as manager screen for now
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Invalid email or password for customer.");
+                    }
                 } else if (isManagerLogin) {
-                    // Navigate to Manager screen
-                    dispose(); // Close the login screen
-                    new ManagerScreen().setVisible(true);
+                    if ((email.equals(MANAGER_EMAIL_1) && password.equals(MANAGER_PASSWORD_1)) ||
+                            (email.equals(MANAGER_EMAIL_2) && password.equals(MANAGER_PASSWORD_2))) {
+                        // Navigate to Manager screen
+                        dispose(); // Close the login screen
+                        new ManagerScreen().setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Invalid email or password for manager.");
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select a login type (Customer or Manager).");
                 }
