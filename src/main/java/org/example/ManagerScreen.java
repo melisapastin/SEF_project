@@ -1,5 +1,7 @@
 package org.example;
 
+import jdk.internal.icu.text.UnicodeSet;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -307,6 +309,11 @@ public class ManagerScreen extends JFrame {
         // Display a confirmation message to the manager
         JOptionPane.showMessageDialog(this, "New application received for " + application.getAnimalName() + ".");
     }
+
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
 }
 
 // Animal class to store animal details
