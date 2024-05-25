@@ -17,10 +17,9 @@ public class LoginScreenTest {
         JPasswordField passwordField = new JPasswordField("customer1pass");
         loginScreen.isCustomerLogin = true;
         loginScreen.isManagerLogin = false;
-        JButton loginButton = new JButton("Login");
 
         // Simulate button click
-        loginButton.doClick();
+        loginScreen.getLoginButton().doClick();
     }
 
     @Test
@@ -30,9 +29,8 @@ public class LoginScreenTest {
         JPasswordField passwordField = new JPasswordField("manager1pass");
         loginScreen.isCustomerLogin = false;
         loginScreen.isManagerLogin = true;
-        JButton loginButton = new JButton("Login");
 
         // Simulate button click
-        loginButton.doClick();
+        loginScreen.getLoginButton().doClick();
     }
 }

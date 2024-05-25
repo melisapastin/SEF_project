@@ -14,6 +14,9 @@ public class LoginScreen extends JFrame {
     // Declare a panel to hold login fields
     private JPanel loginPanel;
 
+    // Declare login button as an instance variable
+    private JButton loginButton;
+
     // Flags to determine which login type is selected
     boolean isCustomerLogin = false;
     boolean isManagerLogin = false;
@@ -75,8 +78,8 @@ public class LoginScreen extends JFrame {
         JTextField emailField = new JTextField(20);
         JPasswordField passwordField = new JPasswordField(20);
 
-        // Create login button
-        JButton loginButton = new JButton("Login");
+        // Initialize login button
+        loginButton = new JButton("Login");
         loginButton.setFont(new Font("Arial", Font.BOLD, 14));
 
         // Add components to the login panel
@@ -159,5 +162,10 @@ public class LoginScreen extends JFrame {
                 new LoginScreen().setVisible(true);
             }
         });
+    }
+
+    // Method to return the login button
+    public JButton getLoginButton() {
+        return loginButton;
     }
 }
