@@ -141,15 +141,12 @@ public class CustomerScreen extends JFrame {
     // Main method to run the customer screen application
     public static void main(String[] args) {
         // Sample data for testing
-        List<Animal> sampleAnimals = new ArrayList<>();
-        sampleAnimals.add(new Animal("Buddy", "dog", 3));
-        sampleAnimals.add(new Animal("Mittens", "cat", 2));
-        sampleAnimals.add(new Animal("Goldie", "fish", 1));
-
+        List<Animal> Animals = new ArrayList<>();
+        Animals=AnimalDatabase.getAnimals();
         // Create an instance of ManagerScreen
         ManagerScreen managerScreen = new ManagerScreen();
 
         // Create an instance of CustomerScreen with sample data
-        new CustomerScreen(sampleAnimals, managerScreen);
+        new CustomerScreen(Animals, managerScreen);
     }
 }

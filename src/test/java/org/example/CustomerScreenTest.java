@@ -19,10 +19,7 @@ public class CustomerScreenTest {
     public void setUp() {
         // Sample data for testing
         animals = new ArrayList<>();
-        animals.add(new Animal("Buddy", "dog", 3));
-        animals.add(new Animal("Mittens", "cat", 2));
-        animals.add(new Animal("Goldie", "fish", 1));
-
+      animals=AnimalDatabase.getAnimals();
         // Create a mock ManagerScreen object for testing
         ManagerScreen managerScreen = new ManagerScreen();
 
@@ -49,15 +46,14 @@ public class CustomerScreenTest {
         animalList.setSelectedIndex(0);
 
         // Submit application for the selected animal
-        customerScreen.submitApplication(animals.get(0), "I want to adopt Buddy.");
+        customerScreen.submitApplication(animals.get(0), "I want to adopt Sindy.");
 
         // Get the list of applications from ManagerScreen
-        List<Application> applications = customerScreen.getManagerScreen().getApplications();
-
+        List<Application> applications =  ApplicationDatabase.getAllApplications();
         // Check if the application for "Buddy" exists in the applications list
         boolean applicationExists = false;
         for (Application application : applications) {
-            if (application.getAnimalName().equals("Buddy")) {
+            if (application.getAnimalName().equals("Sindy")) {
                 applicationExists = true;
                 break;
             }
