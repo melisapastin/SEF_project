@@ -146,10 +146,8 @@ public class ManagerScreen extends JFrame {
                     try {
                         int newAge = Integer.parseInt(newAgeString);
                         // Update the animal's details
-                        selectedAnimal.setName(newName);
-                        selectedAnimal.setSpecies(newSpecies);
-                        selectedAnimal.setAge(newAge);
-                        JOptionPane.showMessageDialog(null, "Animal details updated:\nName: " + newName + "\nSpecies: " + newSpecies + "\nAge: " + newAge);
+
+                        animals=AnimalDatabase.EditAnimalFromDatabase(selectedAnimalName, newName, newSpecies, newAge);
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid integer for the age.");
                     }
@@ -206,6 +204,7 @@ public class ManagerScreen extends JFrame {
         // Add action listener for the See Applications button
         seeApplicationsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                applications=ApplicationDatabase.getAllApplications();
                 if (applications.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "No adoption applications available.");
                     return;
@@ -266,7 +265,7 @@ public class ManagerScreen extends JFrame {
                         }
 
                         if (adoptedAnimal != null) {
-                            animals.remove(adoptedAnimal);
+                            animals=AnimalDatabase.DeleteAnimalFromAnimalDatabase(adoptedAnimal.getName()) ;
                             JOptionPane.showMessageDialog(null, "Application accepted. Animal adopted: " + adoptedAnimal.getName());
                         }
                     } else {
@@ -274,7 +273,7 @@ public class ManagerScreen extends JFrame {
                     }
 
                     // Remove the processed application from the list
-                    applications.remove(selectedApplication);
+                    applications=ApplicationDatabase.deleteApplicationFromDatabase(selectedApplication.getAnimalName(),selectedApplication.getAnimalSpecies(),selectedApplication.getAnimalAge(),selectedApplication.getMessage());
                 }
             }
         });
@@ -304,8 +303,7 @@ public class ManagerScreen extends JFrame {
 
     public void addApplication(Application application) {
         // Add the application to the list of applications
-        applications.add(application);
-
+       ApplicationDatabase.addApplicationToDatabase(application.getAnimalName(), application.getAnimalSpecies(), application.getAnimalAge(), application.getMessage());
         // Display a confirmation message to the manager
         JOptionPane.showMessageDialog(this, "New application received for " + application.getAnimalName() + ".");
     }
@@ -315,6 +313,7 @@ public class ManagerScreen extends JFrame {
     }
 
     public List<Application> getApplications() {
+        applications=ApplicationDatabase.getAllApplications();
         return applications;
     }
 }
