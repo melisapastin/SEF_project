@@ -85,34 +85,6 @@ public class AnimalDatabase {
         }
         return animalList;
     }
-
-    public static List<Animal>EditAnimalFromDatabase(String animalName,String newName, String species, int age){
-        String updateSQL = "UPDATE animals SET name = ?, species = ? , age=? WHERE name = ?";
-        List<Animal> animalList = new ArrayList<>();
-        try {
-            // Establish connection to the database
-            connection = DriverManager.getConnection(url, user, password);
-            statement = connection.createStatement();
-            PreparedStatement pstmt = connection.prepareStatement(updateSQL);
-
-                pstmt.setString(1, newName);
-                pstmt.setString(2, species);
-                pstmt.setInt(3, age);
-                pstmt.setString(4, animalName);
-
-                int rowsAffected = pstmt.executeUpdate();
-                if (rowsAffected > 0) {
-                    System.out.println("Updated animal: " + animalName + " to " + newName + " with type " + species);
-                } else {
-                    System.out.println("No animal found with the name: " + animalName);
-                }
-
-                animalList = AnimalDatabase.getAnimals();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return animalList;
-
     }
-}
+
+

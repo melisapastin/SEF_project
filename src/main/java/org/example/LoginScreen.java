@@ -31,6 +31,15 @@ public class LoginScreen extends JFrame {
     private static final String MANAGER_EMAIL_2 = "manager2@example.com";
     private static final String MANAGER_PASSWORD_2 = "manager2pass";
 
+    // Define email-password combinations for customers and managers
+    private static final String CUSTOMER_EMAIL_1 = "customer1@example.com";
+    private static final String CUSTOMER_PASSWORD_1 = "customer1pass";
+    private static final String CUSTOMER_EMAIL_2 = "customer2@example.com";
+    private static final String CUSTOMER_PASSWORD_2 = "customer2pass";
+    private static final String MANAGER_EMAIL_1 = "manager1@example.com";
+    private static final String MANAGER_PASSWORD_1 = "manager1pass";
+    private static final String MANAGER_EMAIL_2 = "manager2@example.com";
+    private static final String MANAGER_PASSWORD_2 = "manager2pass";
 
     // Constructor to set up the login screen
     public LoginScreen() {
@@ -130,9 +139,11 @@ public class LoginScreen extends JFrame {
                             (email.equals(CUSTOMER_EMAIL_2) && password.equals(CUSTOMER_PASSWORD_2))) {
                         // Navigate to Customer screen
                         dispose(); // Close the login screen
-                        List<Animal> Animals = new ArrayList<>();
-                       Animals=AnimalDatabase.getAnimals();
-                        new CustomerScreen(Animals, null).setVisible(true); // Pass null as manager screen for now
+                        List<Animal> sampleAnimals = new ArrayList<>();
+                        sampleAnimals.add(new Animal("Buddy", "dog", 3));
+                        sampleAnimals.add(new Animal("Mittens", "cat", 2));
+                        sampleAnimals.add(new Animal("Goldie", "fish", 1));
+                        new CustomerScreen(sampleAnimals, null).setVisible(true); // Pass null as manager screen for now
                     } else {
                         JOptionPane.showMessageDialog(null, "Invalid email or password for customer.");
                     }
